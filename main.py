@@ -19,7 +19,7 @@ file=get_filename(place)
 
 days=st.slider("Forecasted Days",min_value=1,max_value=100,help=" Select the number of forecasted days")
 option=st.selectbox("Select data to view ",("temperature","Sky"))
-st.subheader(f"{option} for the next {days} days in {place}")
+
 
 path = os.getcwd() + "\data\TG_STAID" + str(file).zfill(6) + ".txt"
 #path=os.getcwd()+"\data\TG_STAID000001.txt"
@@ -41,6 +41,7 @@ def get_temp(days):
 
 d,t=get_temp(days)
 
+st.subheader(f"{option} for the next {days} days in {place}")
 st.subheader(f"place : {place } file: {file} days : {days}")
 
 figure=px.line(x=d,y=t,labels={"x":"Date","y":"temperature(c)"})
