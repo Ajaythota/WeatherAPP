@@ -2,16 +2,18 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 import os
+#get station names for 10 stations
 path3=os.getcwd() + "\data\stations.txt"
 ds=pd.read_csv(path3,skiprows=17)
 ds=ds[['STAID','STANAME                                 ']]
 ds=ds.head(10)
 
+#get the corresponding file for the station  picked
 def get_filename(place):
     file=str(ds[ds['STANAME                                 ']==place]['STAID'].squeeze())
     return file
 
-
+#display the form on the web
 st.title("Weather forecast for the next days")
 #place=st.text_input("Place: ")
 place=st.selectbox("Select station to view ",ds['STANAME                                 '])
@@ -42,7 +44,7 @@ def get_temp(days):
 d,t=get_temp(days)
 
 st.subheader(f"{option} for the next {days} days in {place}")
-st.subheader(f"place : {place } file: {file} days : {days}")
+st.subheader(f"place : {place } - file: {file} -days : {days}")
 
 figure=px.line(x=d,y=t,labels={"x":"Date","y":"temperature(c)"})
 st.plotly_chart(figure)
